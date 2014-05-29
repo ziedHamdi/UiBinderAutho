@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Custom-built GWT. You probably want to uncomment the DOCTYPE and point 
+	it to your GWT checkout <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google 
+	Web Toolkit 0.0.999//EN" "file:///path/to/gwt/checkout/distro-source/core/src/gwt-module.dtd"> -->
+<module rename-to='auth'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name="com.google.web.bindery.autobean.AutoBean" />
+	<!-- Inherit the default GWT style sheet. You can change -->
+	<!-- the theme of your GWT application by uncommenting -->
+	<!-- any one of the following lines. -->
+	<inherits name='com.google.gwt.user.theme.clean.Clean' />
+	<!-- <inherits name='com.google.gwt.user.theme.standard.Standard'/> -->
+	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
+
+	<!-- Other module inherits -->
+	<inherits name="fr.onevu.gwt.uibinder.UiBinder" />
+
+	<!-- Specify the app entry point class. -->
+	<entry-point class='fr.onevu.auth.client.Auth' />
+
+	<!-- Specify the paths for translatable code -->
+	<source path='client' />
+	<source path='shared' />
+
+
+
+	<replace-with
+		class="fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator">
+		<when-type-is
+			class="fr.onevu.gwt.uibinder.client.factory.ContextSpecificWidgetCreator" />
+	</replace-with>
+	<!-- <generate-with class="fr.onevu.auth.client.common.patch.auth.UiBinderProxiedGenerator"> -->
+	<!-- <when-type-assignable class="com.google.gwt.uibinder.client.UiRenderer"/> -->
+	<!-- </generate-with> -->
+
+	<!-- <generate-with class="fr.onevu.auth.client.common.patch.auth.UiBinderProxiedGenerator"> -->
+	<!-- <when-type-assignable class="com.google.gwt.uibinder.client.UiBinder"/> -->
+	<!-- </generate-with> -->
+
+	<!-- allow Super Dev Mode -->
+	<add-linker name="xsiframe" />
+</module>
