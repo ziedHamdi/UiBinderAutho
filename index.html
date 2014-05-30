@@ -56,9 +56,11 @@
 
         ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
 
-//here the rules get injected to the client : you can start using UiBinder from now             ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(rulesJson));
+//here the rules get injected to the client : you can start using UiBinder from now 
 
-//by inheriting this module, you can be sure when it comes to your code, all is correctly initialized
+      ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(rulesJson));
+
+**//by inheriting this module, you can be sure when it comes to your code, all is correctly initialized**
 }
 </code></pre>
 
