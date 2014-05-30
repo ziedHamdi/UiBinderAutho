@@ -37,14 +37,15 @@
 
 <p>The main classes you should look at are the following:</p>
 
-<pre><code> ProfileSpecificWidgetCreator which contains the logic on how to change the look of any widget
- fr.onevu.auth.server.auth.Profile you'll have to change this server side class that specifies the behavior of your widgets (this is typically a check of the connected profile, then a database reading of the settings associated to the profile roles)
- /Auth/war/profile.jsp this file uses the answer of the server class Profile to load the settings into the page. You must do a &lt;%@include file="profile.jsp" %&gt; in your module html file to be able to grab the info from the server.
+<pre><code>1.  ProfileSpecificWidgetCreator which contains the logic on how to change the look of any widget
+2.  fr.onevu.auth.server.auth.Profile you'll have to change this server side class that specifies the behavior of your widgets (this is typically a check of the connected profile, then a database reading of the settings associated to the profile roles)
+3.  /Auth/war/profile.jsp this file uses the answer of the server class Profile to load the settings into the page. You must do a &lt;%@include file="profile.jsp" %&gt; in your module html file to be able to grab the info from the server.
 </code></pre>
 
 <p>This code is the key to understand the initialization process, it's the Module startup code</p>
 
-<pre><code>    public void onModuleLoad() {
+<pre><code>public class Auth implements EntryPoint {
+    public void onModuleLoad() {
         RootPanel profilePanel = RootPanel.get("profile");
         if (profilePanel == null)
             return;
@@ -56,6 +57,9 @@
         ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
 
 //here the rules get injected to the client : you can start using UiBinder from now             ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(rulesJson));
+
+//by inheriting this module, you can be sure when it comes to your code, all is correctly initialized
+}
 </code></pre>
 
 <h3>
