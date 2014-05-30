@@ -79,8 +79,10 @@
 <li>a user decides to change the styles (personalize the theme)</li>
 <li>the application state changes and allows restricted access</li>
 <li>any state that justifies a page reload</li>
-<li>Since the library UiBinderAuth is specialized in UiBinder interception, it will not natively work with manually created widgets. But we strongly recommend that each created widget passes through the gateway method ContextSpecificWidgetCreator#init(). This will allow to have a uniform authorization handling controller. This can be achieved through the ClienFactory pattern that is anyway recommended.</li>
-</ul><p>Later, this library might include a widget cache, that will make it possible to provide runtime services (as opposed to startup services):</p>
+<li>add tooltips and helps to widgets if the user is a new user</li>
+</ul><p>Since the library UiBinderAuth is specialized in UiBinder interception, it will not natively work with manually created widgets. But we strongly recommend that each created widget passes through the gateway method ContextSpecificWidgetCreator#init(). This will allow to have a uniform authorization handling controller. This can be achieved through the ClienFactory pattern that is anyway recommended.</p>
+
+<p>Later, this library might include a widget cache, that will make it possible to provide runtime services (as opposed to startup services):</p>
 
 <ul>
 <li>adding handlers to detect EventBus events related to Widget display mode and update the cached visible widgets</li>
