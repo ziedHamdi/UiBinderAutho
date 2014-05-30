@@ -67,41 +67,28 @@
 <h3>
 <a name="deeper-reading" class="anchor" href="#deeper-reading"><span class="octicon octicon-link"></span></a>Deeper reading</h3>
 
-<p>GWT UiBinder authorization layer : a proxy that give you control over the creation of each widget</p>
+<p>This project is a default implementation of UiBinderAuth, it is in this separate project because it provides some data structure to hold the abstract concepts in <a href="https://github.com/ziedHamdi/UiBinderAuth">UiBinderAuth</a></p>
 
-<p>(this project was first shared on google code : <a href="https://code.google.com/p/ui-binder-factory-proxy/">https://code.google.com/p/ui-binder-factory-proxy/</a>)</p>
+<p>Classes declared in this project can be directly reused/extended in your project. You'll have to implement the service that tells the client which field of which UiBinder file has to be handled specifically for the connected user. The server know who is connected on the other side of the lane, so it can give display directives on GWT application startup. If the user connects or has rule changes, a page reload will be necessary. But this kind of changes is rare enough to justify a page reload.</p>
 
-<p>What is it for? UiBinder? is a great way to isolate ui design code and ui logic. It unfortunately doesn't permit to declare authorization rules.</p>
+<p>Cases where the user roles change might be:</p>
 
-<p>That's the purpose of this library that is a fork of GWT UiBinder?: you can decide to intercept the creation of widgets declared in UiBinder? to change their look, hide them, add handlers, etc...</p>
+<ul>
+<li>a user with a certain role (manager, visitor, none, administrator)</li>
+<li>an administrator forbidding a functionality to a given user</li>
+<li>a user decides to change the styles (personalize the theme)</li>
+<li>the application state changes and allows restricted access</li>
+<li>any state that justifies a page reload</li>
+<li>Since the library UiBinderAuth is specialized in UiBinder interception, it will not natively work with manually created widgets. But we strongly recommend that each created widget passes through the gateway method ContextSpecificWidgetCreator#init(). This will allow to have a uniform authorization handling controller. This can be achieved through the ClienFactory pattern that is anyway recommended.</li>
+</ul><p>Later, this library might include a widget cache, that will make it possible to provide runtime services (as opposed to startup services):</p>
 
-<p>You can also cache Widget instances for later reuse.</p>
-
-<p>Why is it needed? UiBinder? describes well how fields have to display, but it doesn't include any profile mechanism.</p>
-
-<p>With this library you can put all the widgets of all the possible scenarios in a screen, and depending on the connected profile, you can hide some widgets, use personalized styles, add handlers, listen to event bus, and more.</p>
-
-<p>The current version doesn't support holding the created widget references. So currently, if a new user connects (or an application wide information changes), you need to reload the page. It's okay since if a person disconnects it's a big enough operation to reload the page.</p>
-
-<p>But in future versions, a Widget pool cache will be provided. This will allow dynamic changes to be reflected on widgets: for example when the person will look at a profile page (let's say in a social network), all widgets could change look because the Place specifies it's looking at a profile.</p>
-
-<p>What does it do? This library permits to :</p>
-
-<p>control widgets at creation time (the xml file and the field name are passed as arguments) modify the declarations stated in UiBinder? xml files (at creation + on event bus events) add handlers to widgets (at creation + on event bus events) not intrusive to your existing architecture: plugged from the outside This library intercepts the request to create new widgets, it has detailed information about the widget (UiBinder? file + field name). It may therefore be used to recycle widgets in a pool</p>
-
-<p>What does it not do? Since problems can be solved in many ways, this library focuses on the widget creation subject only. It doesn't provide any services after creation like checking the states of the widget tree. That can be done in different manners, and we prefer not to choose one on your behalf</p>
-
-<p>The objective of the library being non intrusive is a key concept. Therefore, a different project will propose a way to cache widgets and another one will propose to register handlers to recycle widgets and handle them during their life cycle.</p>
-
-<p>Where will it evolve The UiBinder? generates too many code that is hard to debug since it is text that has to be compiled. This library will gradually replace parts of the generated "hard coded text" by extensible calls to compiled code (that can be separately unit tested).</p>
-
-<p>For now it is done only for after initialization is done : the init() method.</p>
-
-<p>But all what happens between can gradually be moved to compiled code: attached event handles, styleName css setting. Also direct accessor calls like can be proxied to be interceptable. The generated code will do something like:</p>
-
-<p>if( proxy.canCall( fieldName ) ) field.setText();</p>
-
-<p>Where should I start? clone this library and get started: <a href="https://github.com/ziedHamdi/UiBinderAutho/blob/master/README.md">https://github.com/ziedHamdi/UiBinderAutho/blob/master/README.md</a></p>
+<ul>
+<li>adding handlers to detect EventBus events related to Widget display mode and update the cached visible widgets</li>
+<li>react asynchoneously by asking to update the information relative to the role/ as display information</li>
+<li>provide an interface with the available widget 'namepsaces' (UiBinder file + field || hand written scope + field) to edit the widget attributes</li>
+<li>allow to display validation messages next to the concerned widget in a central manner (if a widget is detected to have validation issues, it is get from cache and manipulated to display a message next to it)
+Your help and suggestions are naturally welcome</li>
+</ul>
         </section>
 
         <aside id="sidebar">
