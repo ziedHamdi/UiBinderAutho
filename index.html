@@ -13,13 +13,13 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Uibinderautho by ziedHamdi</title>
+    <title>UiBinderAutho by ziedHamdi</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Uibinderautho</h1>
+        <h1>UiBinderAutho</h1>
         <h2>GWT UiBinder authorization code : how is it thought, and what is  ready to use?</h2>
         <a href="https://github.com/ziedHamdi/UiBinderAutho" class="button"><small>View project on</small>GitHub</a>
       </div>
@@ -29,36 +29,73 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="welcome-to-uibinderautho-the-automatic-part-of-the-uibinderauth-project" class="anchor" href="#welcome-to-uibinderautho-the-automatic-part-of-the-uibinderauth-project"><span class="octicon octicon-link"></span></a>Welcome to UiBinderAutho the automatic part of the UiBinderAuth project.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>This project is a concrete implementation that uses the low level feature added by <a href="https://github.com/ziedHamdi/UiBinderAuth">UiBinderAuth</a>. While the <a href="https://github.com/ziedHamdi/UiBinderAuth">UiBinderAuth</a> is a fork of the GWT UiBinder with added abilities, this project is a base framework to use that added code interception feature.</p>
 
-<pre><code> $ cd your_repo_root/repo_name
- $ git fetch origin
- $ git checkout gh-pages
+<p>Note: at the current state, the API and the "test classes" are mixed together because this project is aimed to be a demo. You can however reuse a lot of classes and interfaces in this code. In any case you'll be obliged to download the sources and adjust the code for your needs. So consider it as a scaffold project for now</p>
+
+<p>The main classes you should look at are the following:</p>
+
+<pre><code> ProfileSpecificWidgetCreator which contains the logic on how to change the look of any widget
+ fr.onevu.auth.server.auth.Profile you'll have to change this server side class that specifies the behavior of your widgets (this is typically a check of the connected profile, then a database reading of the settings associated to the profile roles)
+ /Auth/war/profile.jsp this file uses the answer of the server class Profile to load the settings into the page. You must do a &lt;%@include file="profile.jsp" %&gt; in your module html file to be able to grab the info from the server.
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>This code is the key to understand the initialization process, it's the Module startup code</p>
+
+<pre><code>    public void onModuleLoad() {
+        RootPanel profilePanel = RootPanel.get("profile");
+        if (profilePanel == null)
+            return;
+
+        String rulesJson = profilePanel.getElement().getInnerHTML().trim();
+        if (rulesJson == null || 0 == rulesJson.length())
+            return;
+
+        ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
+
+//here the rules get injected to the client : you can start using UiBinder from now             ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(rulesJson));
+</code></pre>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="deeper-reading" class="anchor" href="#deeper-reading"><span class="octicon octicon-link"></span></a>Deeper reading</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>GWT UiBinder authorization layer : a proxy that give you control over the creation of each widget</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>(this project was first shared on google code : <a href="https://code.google.com/p/ui-binder-factory-proxy/">https://code.google.com/p/ui-binder-factory-proxy/</a>)</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>What is it for? UiBinder? is a great way to isolate ui design code and ui logic. It unfortunately doesn't permit to declare authorization rules.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>That's the purpose of this library that is a fork of GWT UiBinder?: you can decide to intercept the creation of widgets declared in UiBinder? to change their look, hide them, add handlers, etc...</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>You can also cache Widget instances for later reuse.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>Why is it needed? UiBinder? describes well how fields have to display, but it doesn't include any profile mechanism.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>With this library you can put all the widgets of all the possible scenarios in a screen, and depending on the connected profile, you can hide some widgets, use personalized styles, add handlers, listen to event bus, and more.</p>
+
+<p>The current version doesn't support holding the created widget references. So currently, if a new user connects (or an application wide information changes), you need to reload the page. It's okay since if a person disconnects it's a big enough operation to reload the page.</p>
+
+<p>But in future versions, a Widget pool cache will be provided. This will allow dynamic changes to be reflected on widgets: for example when the person will look at a profile page (let's say in a social network), all widgets could change look because the Place specifies it's looking at a profile.</p>
+
+<p>What does it do? This library permits to :</p>
+
+<p>control widgets at creation time (the xml file and the field name are passed as arguments) modify the declarations stated in UiBinder? xml files (at creation + on event bus events) add handlers to widgets (at creation + on event bus events) not intrusive to your existing architecture: plugged from the outside This library intercepts the request to create new widgets, it has detailed information about the widget (UiBinder? file + field name). It may therefore be used to recycle widgets in a pool</p>
+
+<p>What does it not do? Since problems can be solved in many ways, this library focuses on the widget creation subject only. It doesn't provide any services after creation like checking the states of the widget tree. That can be done in different manners, and we prefer not to choose one on your behalf</p>
+
+<p>The objective of the library being non intrusive is a key concept. Therefore, a different project will propose a way to cache widgets and another one will propose to register handlers to recycle widgets and handle them during their life cycle.</p>
+
+<p>Where will it evolve The UiBinder? generates too many code that is hard to debug since it is text that has to be compiled. This library will gradually replace parts of the generated "hard coded text" by extensible calls to compiled code (that can be separately unit tested).</p>
+
+<p>For now it is done only for after initialization is done : the init() method.</p>
+
+<p>But all what happens between can gradually be moved to compiled code: attached event handles, styleName css setting. Also direct accessor calls like can be proxied to be interceptable. The generated code will do something like:</p>
+
+<p>if( proxy.canCall( fieldName ) ) field.setText();</p>
+
+<p>Where should I start? clone this library and get started: <a href="https://github.com/ziedHamdi/UiBinderAutho/blob/master/README.md">https://github.com/ziedHamdi/UiBinderAutho/blob/master/README.md</a></p>
         </section>
 
         <aside id="sidebar">
