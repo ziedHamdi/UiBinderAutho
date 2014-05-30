@@ -69,17 +69,18 @@
 
 <p>This project is a default implementation of UiBinderAuth, it is in this separate project because it provides some data structure to hold the abstract concepts in <a href="https://github.com/ziedHamdi/UiBinderAuth">UiBinderAuth</a></p>
 
-<p>Classes declared in this project can be directly reused/extended in your project. You'll have to implement the service that tells the client which field of which UiBinder file has to be handled specifically for the connected user. The server know who is connected on the other side of the lane, so it can give display directives on GWT application startup. If the user connects or has rule changes, a page reload will be necessary. But this kind of changes is rare enough to justify a page reload.</p>
+<p>Classes declared in this project can be directly reused/extended in your project. You'll have to implement the service that tells the client which field of which UiBinder file has to be handled specifically for the connected user. The server knows who is connected on the other side of the lane, so it can give display directives on GWT application startup. If the user connects or has rule changes, a page reload will be necessary. But this kind of changes is rare enough to justify a page reload.</p>
 
-<p>Cases where the user roles change might be:</p>
+<p>Cases where the widgets display may be impacted in an application wide context are for example: </p>
 
 <ul>
 <li>a user with a certain role (manager, visitor, none, administrator)</li>
-<li>an administrator forbidding a functionality to a given user</li>
-<li>a user decides to change the styles (personalize the theme)</li>
-<li>the application state changes and allows restricted access</li>
-<li>any state that justifies a page reload</li>
-<li>add tooltips and helps to widgets if the user is a new user</li>
+<li>a user loosing access to some features (eg. credit insufficient, administrator forbidding functionality to a given user, etc...) </li>
+<li>a user decides to change the styles (personalize his 'desktop' theme)</li>
+<li>the application state changes (maintenance) and allows restricted access</li>
+<li>a bonus temporary feature for the user (for his birthday :-) )</li>
+<li>add tooltips and helps to widgets if the user is new to the platform</li>
+<li>notify the user of warning states on login (that may be consumed after)</li>
 </ul><p>Since the library UiBinderAuth is specialized in UiBinder interception, it will not natively work with manually created widgets. But we strongly recommend that each created widget passes through the gateway method ContextSpecificWidgetCreator#init(). This will allow to have a uniform authorization handling controller. This can be achieved through the ClienFactory pattern that is anyway recommended.</p>
 
 <p>Later, this library might include a widget cache, that will make it possible to provide runtime services (as opposed to startup services):</p>
