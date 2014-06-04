@@ -5,7 +5,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator;
 import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
-import fr.onevu.auth.client.ui.AuthTest;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -26,7 +25,7 @@ public class Auth implements EntryPoint {
 
 		ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
 		ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(rulesJson));
-		AuthTest authTest = new AuthTest();
-		RootPanel.get("widget").add(authTest);
+		// AuthTest authTest = new AuthTest();
+		// RootPanel.get("widget").add(authTest);
 	}
 }

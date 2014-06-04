@@ -1,7 +1,11 @@
-package fr.onevu.auth.shared.auth.model;
+package fr.onevu.auth.server.auth.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import fr.onevu.auth.shared.auth.model.ProfileWidgetRules;
+import fr.onevu.auth.shared.auth.model.RuleList;
+import fr.onevu.auth.shared.auth.model.UiBinderRuleList;
 
 /**
  * Specifies how a field should show in a specific profile
