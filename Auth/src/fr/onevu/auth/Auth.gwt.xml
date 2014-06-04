@@ -22,7 +22,7 @@
 	<replace-with
 		class="fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator">
 		<when-type-is
-			class="com.google.gwt.uibinder.client.factory.ContextSpecificWidgetCreator" />
+			class="fr.onevu.gwt.uibinder.client.factory.ContextSpecificWidgetCreator" />
 	</replace-with>
 
 	<!-- allow Super Dev Mode -->
