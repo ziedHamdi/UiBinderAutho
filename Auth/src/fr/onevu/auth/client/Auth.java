@@ -8,11 +8,9 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.RootPanel;
 
 import fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator;
 import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
-import fr.onevu.auth.client.ui.AuthTest;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -81,8 +79,8 @@ public class Auth implements EntryPoint {
 	}
 
 	protected void onProfileLoad() {
-		AuthTest authTest = new AuthTest();
-		RootPanel.get("widget").add(authTest);
+		// AuthTest authTest = new AuthTest();
+		// RootPanel.get("widget").add(authTest);
 	}
 
 }
