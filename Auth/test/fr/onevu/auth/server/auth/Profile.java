@@ -15,7 +15,7 @@ public class Profile {
 
 	public static String getProfileWidgetRules(HttpServletRequest request) {
 		RuleListImpl ruleListImpl = new RuleListImpl(true, true, "~btn simple");
-		profileWidgetRulesImpl.putRuleList("fr.onevu.auth.client.ui.AuthTest", "button", ruleListImpl);
+		profileWidgetRulesImpl.putRuleList("fr.onevu.auth.client.ui.UiBinderProfileTest", "button", ruleListImpl);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(profileWidgetRulesImpl).trim();

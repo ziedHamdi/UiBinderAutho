@@ -78,8 +78,6 @@ public class ProfileSpecificWidgetCreator implements ContextSpecificWidgetCreato
 	 * @see WidgetSpecificAuthHandler
 	 */
 	protected <T extends Widget> void handleWidget(T widget, String uiBinder, String field) {
-		System.out.println("handling widget " + uiBinder + " . " + field);
-
 		RuleList ruleList = profileWidgetRules.getRuleList(uiBinder, field);
 		if (ruleList == null)
 			return;

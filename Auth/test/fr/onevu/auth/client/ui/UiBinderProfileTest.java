@@ -9,23 +9,26 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class AuthTest extends Composite implements HasText {
+public class UiBinderProfileTest extends Composite implements HasText {
 
 	private static AuthTestUiBinder uiBinder = GWT.create(AuthTestUiBinder.class);
 
-	interface AuthTestUiBinder extends UiBinder<Widget, AuthTest> {
+	interface AuthTestUiBinder extends UiBinder<Widget, UiBinderProfileTest> {
 	}
 
-	public AuthTest() {
+	public UiBinderProfileTest() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 
 	@UiField
 	Button button;
+	@UiField
+	Label json;
 
-	public AuthTest(String firstName) {
+	public UiBinderProfileTest(String firstName) {
 		initWidget(uiBinder.createAndBindUi(this));
 		button.setText(firstName);
 	}
@@ -43,4 +46,7 @@ public class AuthTest extends Composite implements HasText {
 		return button.getText();
 	}
 
+	public void setProfileJson(String result) {
+		json.setText(result);
+	}
 }

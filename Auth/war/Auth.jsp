@@ -26,7 +26,7 @@
 <!-- be added before this line.                -->
 <!--                                           -->
 <script type="text/javascript" language="javascript"
-	src="auth/auth.nocache.js"></script>
+	src="authTest/authTest.nocache.js"></script>
 </head>
 
 <!--                                           -->
@@ -47,6 +47,5 @@
 	<h1>Web Application Starter Project</h1>
 
 	<div id="widget"></div>
-	<%@include file="profile.jsp" %>
 </body>
 </html>

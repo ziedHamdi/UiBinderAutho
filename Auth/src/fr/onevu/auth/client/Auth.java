@@ -7,7 +7,6 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
-import com.google.gwt.user.client.Window;
 
 import fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator;
 import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
@@ -41,7 +40,6 @@ public class Auth implements EntryPoint {
 			@Override
 			public void onSuccess(String result) {
 				ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
-				System.out.println("request answer: " + result);
 				ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(result.trim()));
 				callback.onSuccess(result);
 			}
@@ -58,29 +56,6 @@ public class Auth implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		// readProfileFromJsp();
-		Callback<String, String> initCallback = new Callback<String, String>() {
-
-			@Override
-			public void onSuccess(String result) {
-				onProfileLoad();
-			}
-
-			@Override
-			public void onFailure(String reason) {
-				onProfileLoadFailure();
-			}
-		};
-		reloadProfile(initCallback);
-	}
-
-	protected void onProfileLoadFailure() {
-		Window.alert("failed to read profile info");
-	}
-
-	protected void onProfileLoad() {
-		// AuthTest authTest = new AuthTest();
-		// RootPanel.get("widget").add(authTest);
 	}
 
 }
