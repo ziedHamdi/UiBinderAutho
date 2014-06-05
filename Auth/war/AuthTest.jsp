@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!doctype html>
 <!-- The DOCTYPE declaration above will set the     -->
 <!-- browser's rendering engine into                -->
@@ -27,6 +27,16 @@
 <!--                                           -->
 <script type="text/javascript" language="javascript"
 	src="authTest/authTest.nocache.js"></script>
+<style type="text/css">
+.odd {
+	background: blue;
+	color: white;
+}
+.even {
+	background: lightgray;
+	color: darkblue;
+}
+</style>
 </head>
 
 <!--                                           -->
@@ -44,8 +54,12 @@
 			application to display correctly.</div>
 	</noscript>
 
-	<h1>Web Application Starter Project</h1>
+	<h1>This is a test page. The page you will have to include in your app is profile.jsp</h1>
 
 	<div id="widget"></div>
+
+	<div id="_profile_" style="display: hidden;">
+		<%@include file="profile.jsp"%>
+	</div>
 </body>
 </html>

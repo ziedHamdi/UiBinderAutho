@@ -1,9 +1,9 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:HTMLPanel>
-		<g:Button styleName="stl" ui:field="button" text="press me for nothing" />
+		<g:Button styleName="stl" ui:field="button" text="press me when ready" />
 		<p style="font-size:0.8em;">
-			<g:Label ui:field="json" />
+			<g:Label ui:field="json" text="press button to reload profile settings"/>
 		</p>
 	</g:HTMLPanel>
 </ui:UiBinder> 

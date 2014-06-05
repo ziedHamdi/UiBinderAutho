@@ -7,6 +7,7 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.ui.RootPanel;
 
 import fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator;
 import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
@@ -15,6 +16,7 @@ import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Auth implements EntryPoint {
+	public static final String PROFILE_DIV = "_profile_";
 
 	public static void doGet(String url, final Callback<String, String> callback) {
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
@@ -39,8 +41,7 @@ public class Auth implements EntryPoint {
 
 			@Override
 			public void onSuccess(String result) {
-				ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
-				ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(result.trim()));
+				setProfileRulesFromJson(result);
 				callback.onSuccess(result);
 			}
 
@@ -52,10 +53,24 @@ public class Auth implements EntryPoint {
 		doGet("profile.jsp", callbackProxy);
 	}
 
+	protected static void setProfileRulesFromJson(String result) {
+		ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
+		ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(result.trim()));
+	}
+
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
+		RootPanel rootPanel = RootPanel.get(PROFILE_DIV);
+		if (rootPanel == null) {
+			System.err.println("You must include a div named '" + PROFILE_DIV + "' containing the json rules. This is recommended for performance concerns");
+			return;
+		}
+		String profileJson = rootPanel.getElement().getInnerHTML();
+		if (profileJson.trim().length() > 0) {
+			setProfileRulesFromJson(profileJson);
+		}
 	}
 
 }
