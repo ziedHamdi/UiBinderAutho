@@ -16,6 +16,7 @@ import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Auth implements EntryPoint {
+	public static final String PROFILE_JSP = "modules/profile.jsp";
 	public static final String PROFILE_DIV = "_profile_";
 
 	public static void doGet(String url, final Callback<String, String> callback) {
@@ -50,7 +51,7 @@ public class Auth implements EntryPoint {
 				callback.onFailure(reason);
 			}
 		};
-		doGet("profile.jsp", callbackProxy);
+		doGet(PROFILE_JSP, callbackProxy);
 	}
 
 	protected static void setProfileRulesFromJson(String result) {

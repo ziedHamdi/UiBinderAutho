@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="/home/zied/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.3.3/jackson-core-2.3.3.jar"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="lib" path="/AuthUiBinder/src"/>
-	<classpathentry kind="lib" path="/AuthUiBinder/war/WEB-INF/classes"/>
+	<classpathentry kind="lib" path="/AuthUiBinder/war/WEB-INF/classes" sourcepath="/AuthUiBinder/src"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

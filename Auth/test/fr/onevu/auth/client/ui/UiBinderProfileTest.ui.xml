@@ -1,7 +1,9 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:HTMLPanel>
-		<g:Button styleName="stl" ui:field="button" text="press me when ready" />
+	    <p>The original rule is at the last line below. Each time you press the following button, the rule is reloaded from server and applyed to existing widgets (in occurence to the button)</p>
+	    <p>Notice the change of the button style applied in the rules <b>odd</b> or <b>even</b>. The ~ before the style name means "override style" instead of append to styles</p>
+		<g:Button styleName="stl" ui:field="button" text="press me to reload rules" />
 		<p style="font-size:0.8em;">
 			<g:Label ui:field="json" text="press button to reload profile settings"/>
 		</p>

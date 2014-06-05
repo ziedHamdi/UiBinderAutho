@@ -59,7 +59,7 @@
 	<div id="widget"></div>
 
 	<div id="_profile_" style="display: hidden;">
-		<%@include file="profile.jsp"%>
+		<%@include file="modules/profile.jsp"%>
 	</div>
 </body>
 </html>
