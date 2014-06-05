@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.onevu.auth.client.Auth;
-import fr.onevu.gwt.uibinder.client.factory.ContextSpecificWidgetCreator;
+import fr.onevu.gwt.uibinder.client.factory.UiBinderWidgetFactory;
 
 public class UiBinderProfileTest extends Composite implements HasText {
 
@@ -26,8 +26,6 @@ public class UiBinderProfileTest extends Composite implements HasText {
 	public UiBinderProfileTest() {
 		initWidget(uiBinder.createAndBindUi(this));
 	}
-
-	protected ContextSpecificWidgetCreator specificWidgetCreator = GWT.create(ContextSpecificWidgetCreator.class);
 
 	Callback<String, String> initCallback = new Callback<String, String>() {
 
@@ -71,7 +69,7 @@ public class UiBinderProfileTest extends Composite implements HasText {
 
 	protected void onProfileLoad(String result) {
 		// apply the newly loaded rule on an existing instance
-		specificWidgetCreator.init(Button.class, "fr.onevu.auth.client.ui.UiBinderProfileTest", "button", button);
+		UiBinderWidgetFactory.init(Button.class, "fr.onevu.auth.client.ui.UiBinderProfileTest", "button", button);
 		json.setText(result);
 	}
 }

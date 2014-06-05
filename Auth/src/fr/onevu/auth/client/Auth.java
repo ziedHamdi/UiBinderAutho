@@ -7,6 +7,7 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import fr.onevu.auth.client.common.auth.ProfileSpecificWidgetCreator;
@@ -66,6 +67,7 @@ public class Auth implements EntryPoint {
 		RootPanel rootPanel = RootPanel.get(PROFILE_DIV);
 		if (rootPanel == null) {
 			System.err.println("You must include a div named '" + PROFILE_DIV + "' containing the json rules. This is recommended for performance concerns");
+			Window.alert("You must include a div named '" + PROFILE_DIV + "' containing the json rules. This is recommended for performance concerns");
 			return;
 		}
 		String profileJson = rootPanel.getElement().getInnerHTML();
