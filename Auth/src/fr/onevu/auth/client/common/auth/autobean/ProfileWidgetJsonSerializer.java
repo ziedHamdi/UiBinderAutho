@@ -10,8 +10,12 @@ public class ProfileWidgetJsonSerializer {
 	protected ProfileWidgetRulesFactory factory = GWT.create(ProfileWidgetRulesFactory.class);
 
 	public ProfileWidgetRules deserializeFromJson(String json) {
-		ProfileWidgetRulesFactory factory = GWT.create(ProfileWidgetRulesFactory.class);
-		AutoBean<ProfileWidgetRules> bean = AutoBeanCodex.decode(factory, ProfileWidgetRules.class, json);
-		return bean.as();
+		try {
+			ProfileWidgetRulesFactory factory = GWT.create(ProfileWidgetRulesFactory.class);
+			AutoBean<ProfileWidgetRules> bean = AutoBeanCodex.decode(factory, ProfileWidgetRules.class, json);
+			return bean.as();
+		} catch (Exception ex) {
+			throw new RuntimeException("failed to read json:\n" + json, ex);
+		}
 	}
 }

@@ -52,7 +52,7 @@ public class UiBinderProfileTest extends Composite implements HasText {
 
 	@UiHandler("button")
 	void onClick(ClickEvent e) {
-		Auth.reloadProfile(initCallback);
+		Auth.reloadProfile("module/profile.jsp", initCallback);
 	}
 
 	public void setText(String text) {

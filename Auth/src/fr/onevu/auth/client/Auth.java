@@ -17,8 +17,11 @@ import fr.onevu.auth.client.common.auth.autobean.ProfileWidgetJsonSerializer;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Auth implements EntryPoint {
-	public static final String PROFILE_JSP = "modules/profile.jsp";
-	public static final String PROFILE_DIV = "_profile_";
+	/**
+	 * Change this value at module startup to specify the div in your html that contains the profiles json
+	 */
+	public static String PROFILE_DIV = "_profile_";
+	public static boolean DEBUG = false;
 
 	public static void doGet(String url, final Callback<String, String> callback) {
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
@@ -38,7 +41,7 @@ public class Auth implements EntryPoint {
 		}
 	}
 
-	public static void reloadProfile(final Callback<String, String> callback) {
+	public static void reloadProfile(String profileJsonServlet, final Callback<String, String> callback) {
 		final Callback<String, String> callbackProxy = new Callback<String, String>() {
 
 			@Override
@@ -52,10 +55,12 @@ public class Auth implements EntryPoint {
 				callback.onFailure(reason);
 			}
 		};
-		doGet(PROFILE_JSP, callbackProxy);
+		doGet(profileJsonServlet, callbackProxy);
 	}
 
 	protected static void setProfileRulesFromJson(String result) {
+		if (DEBUG)
+			System.out.println("Setting profile rule " + result);
 		ProfileWidgetJsonSerializer jsonSerializer = new ProfileWidgetJsonSerializer();
 		ProfileSpecificWidgetCreator.setProfileWidgetRules(jsonSerializer.deserializeFromJson(result.trim()));
 	}
