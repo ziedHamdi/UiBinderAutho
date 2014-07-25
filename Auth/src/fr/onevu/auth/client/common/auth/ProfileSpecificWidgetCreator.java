@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import fr.onevu.auth.client.common.concept.ui.AuthRulesAware;
 import fr.onevu.auth.client.common.concept.ui.WidgetSpecificAuthHandler;
@@ -38,14 +39,15 @@ import fr.onevu.gwt.uibinder.client.factory.ContextSpecificWidgetCreator;
  * 
  */
 public class ProfileSpecificWidgetCreator implements ContextSpecificWidgetCreator {
+	private static Logger logger = Logger.getLogger("ProfileSpecificWidgetCreator");
 	protected static ProfileWidgetRules profileWidgetRules;
 	protected static List<WidgetSpecificAuthHandler> widgetSpecificAuthHandlers = new ArrayList<WidgetSpecificAuthHandler>();
 
 	@Override
 	public <T> void init(Class<T> clazz, String uiBinder, String fieldName, T field) {
 		if (profileWidgetRules == null) {
-			System.err
-					.println("Potential bug : no rules are still set. You should call ProfileSpecificWidgetCreator.setProfileWidgetRules() before starting to create widgets");
+			logger
+					.fine("Potential bug : no rules are still set. You should call ProfileSpecificWidgetCreator.setProfileWidgetRules() before starting to create widgets");
 		} else {
 			if (field instanceof Widget)
 				handleWidget((Widget) field, uiBinder, fieldName);
