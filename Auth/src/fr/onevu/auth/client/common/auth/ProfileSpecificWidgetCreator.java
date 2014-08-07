@@ -1,7 +1,7 @@
 package fr.onevu.auth.client.common.auth;
 
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Visibility;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
@@ -98,8 +98,10 @@ public class ProfileSpecificWidgetCreator implements ContextSpecificWidgetCreato
 		Element element = widget.getElement();
 		if (!ruleList.isEnabled())
 			element.setAttribute("disabled", "true");
-		if (!ruleList.isVisible())
-			element.getStyle().setVisibility(Visibility.HIDDEN);
+		if (!ruleList.isVisible()) {
+			// element.getStyle().setVisibility(Visibility.HIDDEN);
+			element.getStyle().setDisplay(Display.NONE);
+		}
 
 		String styles = ruleList.getStyles();
 		if (styles != null && styles.length() > 0) {
