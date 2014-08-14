@@ -47,7 +47,7 @@ public class ProfileSpecificWidgetCreator implements ContextSpecificWidgetCreato
 	public <T> void init(Class<T> clazz, String uiBinder, String fieldName, T field) {
 		if (profileWidgetRules == null) {
 			logger
-					.fine("Potential bug : no rules are still set. You should call ProfileSpecificWidgetCreator.setProfileWidgetRules() before starting to create widgets");
+					.finer("Potential bug : no rules are still set. You should call ProfileSpecificWidgetCreator.setProfileWidgetRules() before starting to create widgets");
 		} else {
 			if (field instanceof Widget)
 				handleWidget((Widget) field, uiBinder, fieldName);
